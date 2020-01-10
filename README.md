@@ -1,1 +1,1 @@
-# gate-go
+# gate
