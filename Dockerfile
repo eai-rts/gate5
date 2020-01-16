@@ -6,7 +6,7 @@ LABEL maintainer="Evgeniy Pereverzev <kamtorg@bk.com>"
 
 # Install git.
 # Git is required for fetching the dependencies.
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git protoc
 
 # Set the current working directory inside the container 
 WORKDIR /app

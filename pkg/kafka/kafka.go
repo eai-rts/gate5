@@ -1,28 +1,35 @@
 package kafka
 
 import (
-	ckafka "gopkg.in/confluentinc/confluent-kafka-go.v1/kafka"
+	"log"
 	"net/http"
+
+	ckafka "gopkg.in/confluentinc/confluent-kafka-go.v1/kafka"
 )
 
-// RequestSaver ..
-type RequestSaver interface {
-	Save(req *http.Request) error
+// Publisher ..
+type Publisher interface {
+	Publish(req *http.Request) error
 }
 
 type producer struct {
-	CKafka: *ckafka.Producer
+	*ckafka.Producer
 }
 
-func (p *Producer) Save(req *http.Request) error {
+func newProducer() producer {
+	p, err := ckafka.NewProducer(&ckafka.ConfigMap{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	return producer{p}
+}
+
+func (p *producer) Publish(req *http.Request) error {
 	return nil
 }
 
-func (p *Producer) NewRequestSaver() *RequestSaver{
-	p, err := kafka.NewProducer(&ckafka.ConfigMap{"bootstrap.servers": broker})
-	if (err != nil) {
-		log.Fatal(err)
-	}
-	return &producer{CKafka: &p}
+// NewPublisher is a Publisher constructor
+func NewPublisher() Publisher {
+	p := newProducer()
+	return &p
 }
-
